@@ -1,0 +1,18 @@
+{"users" : [{"Username" : "jan","password" : "w8","avatar" : "img"},{"Username" : "bert","password" : "w8","avatar" : "img"}]}
+
+
+
+
+
+{"Rooms" : [{"Name" : "room1","users" : [{id : "0"}, {id : "1"}],"Roomsize" : "5","started" : "true"}]}
+
+
+{"Rankings" : [{"score" : "100","room_id" : "1"},{"score" : "100","room_id" : "1"}]}
+
+
+
+
+
+
+
+
