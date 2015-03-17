@@ -20,7 +20,7 @@ var User = require('./app/models/User.js');
 var Room = require('./app/models/Room.js');
 var Rank = require('./app/models/Rankings.js');
 
-mongoose.connect("mongodb://localhost:27017/eindopdracht");
+mongoose.connect("mongodb://user:user@ds039211.mongolab.com:39211/smile");
 
 
 var router = express.Router();
