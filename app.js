@@ -2,8 +2,11 @@
 
 // set up ======================================================================
 // get all the tools we need
-var express  = require('express');
-var app      = express();
+
+var app = require('express')();
+var express = require('express');
+var server = require('http').createServer(app);
+var io = require('socket.io')(server);
 
 var mongoose = require('mongoose');
 var passport = require('passport');
@@ -68,13 +71,10 @@ app.use(rankings);
 
 
 
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
 
-app.get('/', function(req, res){
-	// just to test
-  res.sendfile('views/index.html');
-});
+
+
+
 
 
 
@@ -82,20 +82,14 @@ app.get('/', function(req, res){
 // ================= IO SOCKET ====================
 // ================================================
 
-io.on('connection', function(socket){
+
+
+io.sockets.on('connection', function(socket){
   socket.on('chat message', function(msg,id){
-    io.emit('chat message ' + id, msg);
+    io.sockets.emit('chat message ' + id, msg);
   });
 });
+server.listen(3000);
 
-http.listen(8080, function(){
-  console.log('io listening on *:3000');
-});
 // ================================================
 
-
-
-//app.set('port', (process.env.PORT || 8080));
-//app.listen(app.get('port'), function(){
-  //  console.log('Magic happens on port ' + app.get('port'));
-//});
