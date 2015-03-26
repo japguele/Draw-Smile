@@ -6,10 +6,11 @@ var Schema       = mongoose.Schema;
 var roomSchema = mongoose.Schema({
 
 
-        name     : String,
+        name     : {type :String , required: true},
         users    : [{type: Schema.Types.ObjectId, ref: 'User'}],
         roomsize : Number,
         started  : Boolean
+
 
   
 

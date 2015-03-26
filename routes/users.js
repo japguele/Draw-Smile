@@ -20,6 +20,7 @@ module.exports = function(router, User){
         });
     })
         .get(function(req, res){
+            
         User.find(function(err, users){
             if(err){
                 res.json({status : "ERROR", message: "Fout bij het ophalen van Users"});
@@ -41,6 +42,37 @@ module.exports = function(router, User){
                 res.json({status : "OK", message: "Ophalen gelukt", data: user});
             });
         })
+          .put(function(req,res){
+
+            User.findById(req.params.user_id, function(err, user){
+                if(err) {
+                    res.json({status : "ERROR", message: "Updaten niet gelukt"});
+                    res.send(err);
+                }
+
+
+                if(req.body.username != null){                
+                    user.username = req.body.username;
+                }
+                
+                if(req.body.password != null){                
+                    user.password = req.body.password;
+                }
+                 if(req.body.img != null){                
+                     user.img = req.body.img;
+                }
+       
+
+
+                user.save(function(err){
+                    if(err) res.send(err);
+
+                    res.status(200);
+                    res.json({status : "OK", message: "Updaten gelukt"});
+                });
+            });            
+        });
+
        
 
     return router;

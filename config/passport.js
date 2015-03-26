@@ -2,10 +2,10 @@
 //TODO
 
 
-//var LocalStrategy   = require('passport-local').Strategy;
-//var mongoose = require('mongoose');
+var LocalStrategy   = require('passport-local').Strategy;
+var mongoose = require('mongoose');
 // load up the user model
-/*
+
 // expose this function to our app using module.exports
 module.exports = function(passport) {
 
@@ -115,4 +115,4 @@ module.exports = function(passport) {
     }));
 
 };
-*/
+

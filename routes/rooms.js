@@ -40,6 +40,44 @@ module.exports = function(router, Room){
                 res.json({status : "OK", message: "Ophalen gelukt", data: room});
             });
         })
+        .put(function(req,res){
+
+            Room.findById(req.params.room_id, function(err, room){
+                if(err) {
+                    res.json({status : "ERROR", message: "Updaten niet gelukt"});
+                    res.send(err);
+                }
+
+
+                if(req.body.name != null){                
+                    room.name = req.body.name;
+                }
+                
+                if(req.body.users != null){                
+                    room.users = req.body.users;
+                }
+                 if(req.body.roomsize != null){                
+                     room.roomsize = req.body.roomsize;
+                }
+                if(req.body.started != null){                
+                    room.started = req.body.started;
+                }
+                if(req.body.messages != null){                
+                     room.messages = req.body.messages;
+                }
+
+
+                room.save(function(err){
+                    if(err) res.send(err);
+
+                    res.status(200);
+                    res.json({status : "OK", message: "Updaten gelukt"});
+                });
+            });            
+        });
+
+
+     
        
 
     return router;
