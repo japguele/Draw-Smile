@@ -89,7 +89,7 @@ io.sockets.on('connection', function(socket){
     io.sockets.emit('chat message ' + id, msg);
   });
 });
-server.listen(3000);
+server.listen(process.env.PORT || 5000);
 
 // ================================================
 
