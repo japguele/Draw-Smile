@@ -17,8 +17,8 @@ var cookieParser = require('cookie-parser')
 var bodyParser   = require('body-parser');
 var session      = require('express-session');
 
+ // pass passport for configuration
 
-require('./config/passport')(passport); // pass passport for configuration
 
 var User = require('./app/models/User.js');
 var Room = require('./app/models/Room.js');
@@ -26,14 +26,8 @@ var Rank = require('./app/models/Rankings.js');
 
 mongoose.connect("mongodb://user:user@ds039211.mongolab.com:39211/smile");
 
-//app.use(session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secret
-
-//app.use(passport.initialize());
-//app.use(passport.session()); // 
 
 
-// configuration ===============================================================
- // connect to our database
 
 
 // set up our express application
@@ -48,36 +42,34 @@ app.use(session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secre
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
-
+require('./config/passport')(passport,User);
 // routes ======================================================================
 var router = express.Router();
+  	console.log("bbbbbbbbbbbb");  	
 
-//var loginRoutes = require('./routes/login.js')(app,passport)
-
+  var isAuthenticated = function (req, res, next) {
+  	console.log("isAuthenticatedaaa");
+      if (req.isAuthenticated())
+     return next();
+     res.redirect('/');
+    }
+ var loginRoutes = require('./routes/login.js')(router, passport)
+   
+    router.use(isAuthenticated);
 var userRoutes = require('./routes/users.js')(router, User);
 var roomRoutes = require('./routes/rooms.js')(router, Room);
 var rankings = require('./routes/rankings.js')(router, Rank);
+
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 
-app.use('/api', router);
-//app.use(loginRoutes);
-app.use(userRoutes);
-app.use(roomRoutes);
-app.use(rankings);
-
-
-
-
-
-
-
-
-
-
-
+app.use(loginRoutes);
+app.use('/', isAuthenticated, userRoutes);
+app.use('/',isAuthenticated, roomRoutes);
+app.use('/',rankings);
+app.set('view engine', 'jade');
 // ================================================
 // ================= IO SOCKET ====================
 // ================================================
