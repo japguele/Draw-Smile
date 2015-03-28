@@ -27,9 +27,6 @@ var Rank = require('./app/models/Rankings.js');
 mongoose.connect("mongodb://user:user@ds039211.mongolab.com:39211/smile");
 
 
-
-
-
 // set up our express application
 app.use(morgan('dev')); // log every request to the console
 app.use(cookieParser()); // read cookies (needed for auth)
@@ -45,7 +42,6 @@ app.use(flash()); // use connect-flash for flash messages stored in session
 require('./config/passport')(passport,User);
 // routes ======================================================================
 var router = express.Router();
-  	console.log("bbbbbbbbbbbb");  	
 
   var isAuthenticated = function (req, res, next) {
   	console.log("isAuthenticatedaaa");
@@ -66,15 +62,13 @@ app.use(bodyParser.json());
 
 
 app.use(loginRoutes);
-app.use('/', isAuthenticated, userRoutes);
-app.use('/',isAuthenticated, roomRoutes);
+app.use('/users', isAuthenticated, userRoutes);
+app.use('/rooms',isAuthenticated, roomRoutes);
 app.use('/',rankings);
 app.set('view engine', 'jade');
 // ================================================
 // ================= IO SOCKET ====================
 // ================================================
-
-
 
 io.sockets.on('connection', function(socket){
   socket.on('chat message', function(msg,id){
