@@ -2,8 +2,6 @@ module.exports = function(router, passport) {
 
   router.get('/',function(req,res){
     res.send("Welcome to the Smile & Draw Api");
-
-
   });
  
   /* GET login page. */
@@ -32,8 +30,8 @@ module.exports = function(router, passport) {
   }));
 
   router.get('/logout',function(req,res){
-  req.logout();
-  res.redirect('/');
+    req.logout();
+    res.redirect('/');
   });
  
   return router;

@@ -1,6 +1,6 @@
 module.exports = function(router, Room){
 
-    router.route('/')
+    router.route('/rooms/')
         .post(function(req, res){
             var room = new Room();
             room.name = req.body.name;
@@ -18,6 +18,7 @@ module.exports = function(router, Room){
             });
         })
         .get(function(req, res){
+            
             Room.find(function(err, rooms){
                 if(err){
                     res.json({status : "ERROR", message: "Fout bij het ophalen van Rooms"});
@@ -28,7 +29,7 @@ module.exports = function(router, Room){
             });
         });
 
-    router.route('/:room_id')
+    router.route('/rooms/:room_id')
         .get(function(req, res){
             Room.findById(req.params.room_id, function(err, room){
                 if(err){
@@ -75,20 +76,22 @@ module.exports = function(router, Room){
             });            
         });
 
-    router.route('/:room_id/users/:user_id')
+    router.route('/rooms/:room_id/users/:user_id')
         .get(function(req, res){
             /**
              * @todo implement the get route that wil return the user specific part of the story 
              */
         })
         .post(function(req, res){
-            var base64Data = req.body.image.replace(/^data:image\/(png|jpg|jpeg|gif);base64,/, "");
-            require("fs").writeFile("room_images/"+ req.params.room_id +"/"+ req.params.room_id +"-out.png", base64Data, 'base64', function(err) {
-                if (!err) {
-                    res.send(200);
-                }
-    
-            });
+            var base64Data = req.body.image;
+            
+            /**
+             * @todo implement saving png image to document in the DB and creating a reference in rooms: users: user object
+             */
+
+            res.status(200);
+            res.json({status: "OK", message: "Uploaded success"});
+               
         })
     
     return router;

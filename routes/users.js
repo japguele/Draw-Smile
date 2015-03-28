@@ -3,7 +3,7 @@
 module.exports = function(router, User){
 
 
-    router.route('/')
+    router.route('/users/')
         .post(function(req, res){
         var user = new User();
         user.username = req.body.username;
@@ -31,7 +31,7 @@ module.exports = function(router, User){
         });
     });
 
-    router.route('/:user_id')
+    router.route('/users/:user_id')
         .get(function(req, res){
             User.findById(req.params.user_id, function(err, user){
                 if(err){
