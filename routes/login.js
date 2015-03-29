@@ -12,7 +12,7 @@ module.exports = function(router, passport) {
  
   /* Handle Login POST */
   router.post('/login', passport.authenticate('login', {
-    successRedirect: '/',
+    successRedirect: '/users',
     failureRedirect: '/login',
     failureFlash : true 
   }));

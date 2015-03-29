@@ -7,7 +7,16 @@ var roomSchema = mongoose.Schema({
 
 
         name     : {type :String , required: true},
-        users    : [{type: Schema.Types.ObjectId, ref: 'User'}],
+        timer 	 : {type : Number},
+        story_id : {type : Schema.Types.ObjectId, ref: 'stories'},
+        users    : [{
+        	user_id : {type : Schema.Types.ObjectId, ref: 'User'},
+        	image 	: {type : Schema.Types.ObjectId, ref: 'images'},
+        	story_part : {type : Number},
+        	completed : {type : Boolean}
+
+
+        }],
         roomsize : Number,
         started  : Boolean
 

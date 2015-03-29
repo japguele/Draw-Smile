@@ -3,7 +3,7 @@
 module.exports = function(router, User){
 
 
-    router.route('/users/')
+    router.route('/users')
         .post(function(req, res){
         var user = new User();
         user.username = req.body.username;
