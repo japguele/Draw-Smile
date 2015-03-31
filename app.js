@@ -25,11 +25,7 @@ var Room = require('./app/models/Room.js');
 var Rank = require('./app/models/Rankings.js');
 
 
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
+
 
 mongoose.connect("mongodb://user:user@ds039211.mongolab.com:39211/smile");
 
@@ -47,21 +43,23 @@ require('./config/passport')(passport,User);
 // routes ======================================================================
 
 var router = express.Router();
-
+/*
 var isAuthenticated = function (req, res, next) {
     if (req.isAuthenticated())
       return next();
     
     res.redirect('/login');
-};
+};*/
 
 var loginRoutes = require('./routes/login.js')(router, passport);
 
 //router.use(isAuthenticated);
-var Images = require('./routes/Images.js')(router, Images);
+var stories = require('./routes/Stories.js')(router, Stories);
+var images = require('./routes/Images.js')(router, Images);
 var userRoutes = require('./routes/users.js')(router, User);
-var roomRoutes = require('./routes/rooms.js')(router, Room);
+var roomRoutes = require('./routes/rooms.js')(router, Room,Images);
 var rankings = require('./routes/rankings.js')(router, Rank);
+
 
 
 app.use(bodyParser.urlencoded({extended: true}));
@@ -69,9 +67,10 @@ app.use(bodyParser.json());
 
 
 app.use(loginRoutes);
-app.use('/', isAuthenticated, userRoutes);
-app.use('/', isAuthenticated, roomRoutes);
-
+app.use('/',  userRoutes);
+app.use('/',  roomRoutes);
+app.use('/',  stories);
+app.use('/',  images);
 app.use('/',rankings);
 app.set('view engine', 'jade');
 

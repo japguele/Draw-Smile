@@ -1,7 +1,9 @@
-module.exports = function(router, Room){
+module.exports = function(router, Room , Images){
 
     router.route('/rooms')
         .post(function(req, res){
+
+             console.log(req.body);
             var room = new Room();
             room.name = req.body.name;
             room.timer = req.body.timer;
@@ -21,14 +23,39 @@ module.exports = function(router, Room){
         })
         .get(function(req, res){
             
-            Room.find(function(err, rooms){
+            Room.find()
+                .populate('users.user_id')
+                .exec(function(err, rooms){
+                  if(err){
+                    res.json({status : "ERROR", message: "Fout bij het ophalen van Rooms"});
+                    res.send(err);
+                }
+
+
+                res.status(200);
+                res.json({status : "OK", message: "Ophalen gelukt", data: rooms});
+                });
+
+                /*function(err, rooms){
                 if(err){
                     res.json({status : "ERROR", message: "Fout bij het ophalen van Rooms"});
                     res.send(err);
                 }
+
+
+                rooms.populate('user_id').exec(function(err,c){
+                    if(errr)
+                    {
+                        return console.log(err);
+                    }
+                console.log(c.user_id.username);
+
+                });
+
+
                 res.status(200);
                 res.json({status : "OK", message: "Ophalen gelukt", data: rooms});
-            });
+            });*/
         });
 
     router.route('/rooms/:room_id')
@@ -80,7 +107,37 @@ module.exports = function(router, Room){
                 });
             });            
         });
+    router.route('/rooms/:room_id/users')
+        .get(function(req,res){
+             Room.findById(req.params.room_id,function(err, rooms){
+                if(err){
+                    res.json({status : "ERROR", message: "Fout bij het ophalen van Rooms"});
+                    res.send(err);
+                }
+                res.status(200);
+                   res.json({status : "OK", message: "Ophalen gelukt", data: rooms.users});
 
+
+            });
+
+        })
+        .post(function(req,res){
+            console.log(req.body)
+            Room.findByIdAndUpdate(req.params.room_id,
+                {$push: {"users": {user: req.body.user , image: req.body.image,story_part: req.body.story_part,completed: req.body.completed}}},  
+             {safe: true, upsert: true},
+              function(err, model) {
+               console.log(err);
+             }
+            );
+
+           
+                    res.status(200);
+                    res.json({status : "OK", message: "Updaten gelukt"});
+
+          
+
+        });
     router.route('/rooms/:room_id/users/:user_id')
         .get(function(req, res){
               Room.findById(req.params.room_id,function(err, rooms){
@@ -91,7 +148,7 @@ module.exports = function(router, Room){
                 var count;
                 for (i = 0; i < rooms.users.length; i++) {
                    
-                if(rooms.users[i].id == req.params.user_id){
+                if(rooms.users[i].user == req.params.user_id){
                     count = i;
                 }
                 }
@@ -112,9 +169,76 @@ module.exports = function(router, Room){
                
               
             });
+
             /**
              * @todo implement the get route that wil return the user specific part of the story 
              */
+        })
+        .put(function(req,res){
+            Room.findById(req.params.room_id,function(err, room){
+                var count;
+               for (i = 0; i < room.users.length; i++) {
+                   
+                if(room.users[i].user == req.params.user_id){
+                    count = i;
+                }
+                }
+
+
+                 if(typeof count === 'undefined'){
+                    res.json({status : "ERROR", message: "Fout bij het ophalen van Rooms"});
+                    
+                }else{
+
+                 room.markModified('users');
+
+      
+
+                    
+
+
+                    if(req.body.story_part != null){                
+                        room.users[count].story_part = req.body.story_part;
+                    }
+                    
+                    if(req.body.completed != null){                
+                       room.users[count].completed = req.body.completed;
+                    }
+
+                
+
+                    console.log("------------------")
+                    if(req.body.image != null){      
+                        var images = new Images();
+                        images.image = req.body.image; 
+                        images.save(function(err,image){
+                            if(err){
+                               res.json({status : "ERROR",  message: "Fout bij het aanmaken van een Images" });
+                               res.send(err);
+                            } 
+                            console.log(image._id);
+                            room.users[count].image = image._id;         
+                            room.save(function(err){
+                                if(err){ res.send(err)};
+                                res.status(200);
+                                res.json({status : "OK", message: "Updaten gelukt"});
+                            });
+
+
+                         });
+                    }else{                                         
+                        room.save(function(err){
+                            if(err){ res.send(err)};
+                            res.status(200);
+                            res.json({status : "OK", message: "Updaten gelukt"});
+                        });
+                    }
+                   
+
+                }
+                
+            });
+            
         })
        
     

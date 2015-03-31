@@ -6,7 +6,7 @@ var Schema       = mongoose.Schema;
 var storiesSchema = mongoose.Schema({
 
 
-        name     : {type :String , required: true},
+        name     : {type : String , required: true},
  
         variants    : [{
           	text : {type :String}

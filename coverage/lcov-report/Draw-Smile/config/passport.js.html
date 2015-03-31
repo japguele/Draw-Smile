@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for Draw-Smile\config\passport.js</title>
+    <meta charset="utf-8">
+
+    <link rel="stylesheet" href="../../prettify.css">
+
+    <link rel="stylesheet" href="../../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header low">
+    <h1>Code coverage report for <span class="entity">Draw-Smile\config\passport.js</span></h1>
+    <h2>
+        
+        Statements: <span class="metric">22.73% <small>(10 / 44)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Branches: <span class="metric">0% <small>(0 / 12)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Functions: <span class="metric">8.33% <small>(1 / 12)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Lines: <span class="metric">22.73% <small>(10 / 44)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../index.html">All files</a> &#187; <a href="index.html">Draw-Smile/config/</a> &#187; passport.js</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">&nbsp;
+//TODO
+&nbsp;
+&nbsp;
+var LocalStrategy   = require('passport-local').Strategy;
+var mongoose = require('mongoose');
+var bCrypt = require('bcrypt-nodejs');
+&nbsp;
+// load up the user model
+&nbsp;
+// expose this function to our app using module.exports
+module.exports = function(passport,User) {
+&nbsp;
+    // =========================================================================
+    // passport session setup ==================================================
+    // =========================================================================
+    // required for persistent login sessions
+    // passport needs ability to serialize and unserialize users out of session
+&nbsp;
+    // used to serialize the user for the session
+    passport.serializeUser(<span class="fstat-no" title="function not covered" >function(user, done) {</span>
+<span class="cstat-no" title="statement not covered" >        done(null, user.id);</span>
+    });
+&nbsp;
+    // used to deserialize the user
+    passport.deserializeUser(<span class="fstat-no" title="function not covered" >function(id, done) {</span>
+<span class="cstat-no" title="statement not covered" >        User.findById(id, <span class="fstat-no" title="function not covered" >function(err, user) {</span></span>
+<span class="cstat-no" title="statement not covered" >            done(err, user);</span>
+        });
+    });
+&nbsp;
+&nbsp;
+&nbsp;
+    passport.use('login', new LocalStrategy({
+        passReqToCallback : true
+      },
+<span class="fstat-no" title="function not covered" >      function(req, username, password, done) {</span>
+        // check in mongo if a user with username exists or not
+<span class="cstat-no" title="statement not covered" >        console.log("username " + username + " password " + password)</span>
+<span class="cstat-no" title="statement not covered" >        User.findOne({ 'username' :  username },</span>
+<span class="fstat-no" title="function not covered" >          function(err, user) {</span>
+            // In case of any error, return using the done method
+<span class="cstat-no" title="statement not covered" >            if (err)</span>
+<span class="cstat-no" title="statement not covered" >              return done(err);</span>
+            // Username does not exist, log error &amp; redirect back
+<span class="cstat-no" title="statement not covered" >            if (!user){</span>
+<span class="cstat-no" title="statement not covered" >              console.log('User Not Found with username '+username);</span>
+<span class="cstat-no" title="statement not covered" >              return done(null, false,</span>
+                    req.flash('message', 'User Not found.'));                
+            }
+            // User exists but wrong password, log the error
+<span class="cstat-no" title="statement not covered" >            if (!isValidPassword(user, password)){</span>
+<span class="cstat-no" title="statement not covered" >              console.log('Invalid Password');</span>
+<span class="cstat-no" title="statement not covered" >              return done(null, false,</span>
+                  req.flash('message', 'Invalid Password'));
+            }
+            // User and password both match, return user from
+            // done method which will be treated like success
+<span class="cstat-no" title="statement not covered" >            return done(null, user);</span>
+          }
+        );
+    })
+    );
+    var isValidPassword = <span class="fstat-no" title="function not covered" >function(user, password){</span>
+<span class="cstat-no" title="statement not covered" >        return bCrypt.compareSync(password, user.password);</span>
+    }
+&nbsp;
+    passport.use('signup', new LocalStrategy({
+        passReqToCallback : true
+      },
+<span class="fstat-no" title="function not covered" >      function(req, username, password, done) {</span>
+<span class="cstat-no" title="statement not covered" >        findOrCreateUser = <span class="fstat-no" title="function not covered" >function(){</span></span>
+          // find a user in Mongo with provided username
+<span class="cstat-no" title="statement not covered" >          User.findOne({'username':username},<span class="fstat-no" title="function not covered" >function(err, user) {</span></span>
+            // In case of any error return
+<span class="cstat-no" title="statement not covered" >            if (err){</span>
+<span class="cstat-no" title="statement not covered" >              console.log('Error in SignUp: '+err);</span>
+<span class="cstat-no" title="statement not covered" >              return done(err);</span>
+            }
+            // already exists
+<span class="cstat-no" title="statement not covered" >            if (user) {</span>
+<span class="cstat-no" title="statement not covered" >              console.log('User already exists');</span>
+<span class="cstat-no" title="statement not covered" >              return done(null, false,</span>
+                 req.flash('message','User Already Exists'));
+            } else {
+              // if there is no user with that email
+              // create the user
+<span class="cstat-no" title="statement not covered" >              var newUser = new User();</span>
+              // set the user's local credentials
+<span class="cstat-no" title="statement not covered" >              newUser.username = username;</span>
+<span class="cstat-no" title="statement not covered" >              newUser.password = createHash(password);</span>
+      
+     
+              // save the user
+<span class="cstat-no" title="statement not covered" >              newUser.save(<span class="fstat-no" title="function not covered" >function(err) {</span></span>
+<span class="cstat-no" title="statement not covered" >                if (err){</span>
+<span class="cstat-no" title="statement not covered" >                  console.log('Error in Saving user: '+err); </span>
+<span class="cstat-no" title="statement not covered" >                  throw err; </span>
+                }
+<span class="cstat-no" title="statement not covered" >                console.log('User Registration succesful');   </span>
+<span class="cstat-no" title="statement not covered" >                return done(null, newUser);</span>
+              });
+            }
+          });
+        };
+         
+        // Delay the execution of findOrCreateUser and execute
+        // the method in the next tick of the event loop
+<span class="cstat-no" title="statement not covered" >        process.nextTick(findOrCreateUser);</span>
+      })
+    );
+&nbsp;
+var createHash = <span class="fstat-no" title="function not covered" >function(password){</span>
+<span class="cstat-no" title="statement not covered" > return bCrypt.hashSync(password, bCrypt.genSaltSync(10), null);</span>
+}
+}
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Tue Mar 31 2015 14:26:02 GMT+0200 (West-Europa (zomertijd))</div>
+</div>
+
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+
+<script src="../../sorter.js"></script>
+</body>
+</html>
