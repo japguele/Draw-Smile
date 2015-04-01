@@ -56,7 +56,7 @@ var loginRoutes = require('./routes/login.js')(router, passport);
 //router.use(isAuthenticated);
 var stories = require('./routes/Stories.js')(router, Stories);
 var images = require('./routes/Images.js')(router, Images);
-var userRoutes = require('./routes/users.js')(router, User);
+var userRoutes = require('./routes/users.js')(router, User,Images);
 var roomRoutes = require('./routes/rooms.js')(router, Room,Images);
 var rankings = require('./routes/rankings.js')(router, Rank);
 

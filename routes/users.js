@@ -1,6 +1,6 @@
 
 
-module.exports = function(router, User){
+module.exports = function(router, User,Images){
 
 
     router.route('/users')
@@ -8,16 +8,26 @@ module.exports = function(router, User){
         var user = new User();
         user.username = req.body.username;
         user.password = req.body.password;
-        user.img = req.body.img;
- 		 console.log(req.body);
-        user.save(function(err){
-            if(err){
-                res.json({status : "ERROR",  message: "Fout bij het aanmaken van een user" + err});
-                res.send(err);
-            }
-            res.status(201);
-            res.json({status : "OK", message: "User is aangemaakt" , data : user});
-        });
+
+
+        if(req.body.image != null){      
+            var images = new Images();
+            images.image = req.body.image; 
+            images.save(function(err,image){
+                 if(err){
+                    res.json({status : "ERROR",  message: "Fout bij het aanmaken van een Images" });
+                    res.send(err);
+                } 
+                console.log(image._id);
+                user.image = image._id;         
+                user.save(function(err){
+                    if(err){ res.send(err)};
+                        res.status(200);
+                        res.json({status : "OK", message: "Updaten gelukt"});
+                    });
+                });
+        }
+ 		
     })
         .get(function(req, res){
             
@@ -58,18 +68,30 @@ module.exports = function(router, User){
                 if(req.body.password != null){                
                     user.password = req.body.password;
                 }
-                 if(req.body.img != null){                
-                     user.img = req.body.img;
-                }
+           
+                if(req.body.image != null){      
+                        var images = new Images();
+                        images.image = req.body.image; 
+                        images.save(function(err,image){
+                            if(err){
+                               res.json({status : "ERROR",  message: "Fout bij het aanmaken van een Images" });
+                               res.send(err);
+                            } 
+                            console.log(image._id);
+                            user.image = image._id;         
+                            user.save(function(err){
+                                if(err){ res.send(err)};
+                                res.status(200);
+                                res.json({status : "OK", message: "Updaten gelukt"});
+                            });
+
+
+                         });
        
+                }
 
-
-                user.save(function(err){
-                    if(err) res.send(err);
-
-                    res.status(200);
-                    res.json({status : "OK", message: "Updaten gelukt"});
-                });
+        
+                
             });            
         });
 
