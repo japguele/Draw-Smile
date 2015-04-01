@@ -18,13 +18,13 @@ module.exports = function(router, Room , Images){
                     res.send(err);
                 }
                 res.status(201);
-                res.json({status : "OK", message: "Room is aangemaakt"});
+                res.json({status : "OK", message: "Room is aangemaakt", data: room});
             });
         })
         .get(function(req, res){
             
             Room.find()
-                .populate('users.user_id')
+                .populate('users.user')
                 .exec(function(err, rooms){
                   if(err){
                     res.json({status : "ERROR", message: "Fout bij het ophalen van Rooms"});
@@ -60,15 +60,19 @@ module.exports = function(router, Room , Images){
 
     router.route('/rooms/:room_id')
         .get(function(req, res){
-            Room.findById(req.params.room_id, function(err, room){
-                if(err){
-                    res.json({status : "ERROR", message: "Fout bij het ophalen van room"});
+              Room.find(req.params.room_id)
+                .populate('users.user')
+                .exec(function(err, rooms){
+                  if(err){
+                    res.json({status : "ERROR", message: "Fout bij het ophalen van Rooms"});
                     res.send(err);
-                }
-                res.status(200);
-                res.json({status : "OK", message: "Ophalen gelukt", data: room});
-            });
-        })
+                  }
+
+                  res.status(200);
+                  res.json({status : "OK", message: "Ophalen gelukt", data: rooms});
+        
+                });
+            })
         .put(function(req,res){
 
             Room.findById(req.params.room_id, function(err, room){
@@ -133,7 +137,7 @@ module.exports = function(router, Room , Images){
 
            
                     res.status(200);
-                    res.json({status : "OK", message: "Updaten gelukt"});
+                    res.json({status : "OK", message: "Updaten gelukt", data : user});
 
           
 

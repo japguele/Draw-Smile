@@ -56,6 +56,11 @@ function makeRequest(route, statusCode, done){
 };
 
 
+
+
+
+
+
 describe('Testing route ', function(){	
 	describe(' images' ,function(){
 		it(' get ' , function(done){			
@@ -70,20 +75,146 @@ describe('Testing route ', function(){
 		it(' get by id ', function(done){
 				makeRequest('/Images', 200, function(err, res){
 					if(err){ return done(err); }
-					console.log( res.body.data[0]._id);
+					
 					makeRequest('/Images/' + res.body.data[0]._id, 200, function(err, res){
 						if(err){ return done(err); }
 						expect(res.body.status).to.equal('OK');
 				
 						done();
 					});					
-				});					
-						
+				});						
 		});
-		
-	
 	});
+	describe(' Rankings' ,function(){
+		it(' get ' , function(done){			
+			makeRequest('/Rankings', 200, function(err, res){
+					if(err){ return done(err); }
+					expect(res.body.status).to.equal('OK');
+					expect(res.body.data).to.not.be.null;
+				
+					done();
+			});
+		});
+		it(' get by id ', function(done){
+				makeRequest('/Rankings', 200, function(err, res){
+					if(err){ return done(err); }
+			
+					makeRequest('/Rankings/' + res.body.data[0]._id, 200, function(err, res){
+						if(err){ return done(err); }
+						expect(res.body.status).to.equal('OK');
+				
+						done();
+					});					
+				});							
+		});		
+	});
+	describe(' Rooms' ,function(){
+		it(' get ' , function(done){			
+			makeRequest('/rooms', 200, function(err, res){
+					if(err){ return done(err); }
+					expect(res.body.status).to.equal('OK');
+					expect(res.body.data).to.not.be.null;
+				
+					done();
+			});
+		});		
+		it(' get by id ', function(done){
+				makeRequest('/rooms', 200, function(err, res){
+					if(err){ return done(err); }
+			
+					makeRequest('/rooms/' + res.body.data[0]._id, 200, function(err, res){
+						if(err){ return done(err); }
+						expect(res.body.status).to.equal('OK');
+				
+						done();
+					});					
+				});							
+		});	
+		it( ' get roomusers' , function(done){
+
+			makeRequest('/rooms', 200, function(err, res){
+					if(err){ return done(err); }
+			
+					makeRequest('/rooms/' + res.body.data[0]._id + '/users', 200, function(err, res){
+						if(err){ return done(err); }
+						expect(res.body.status).to.equal('OK');
+				
+						done();
+					});					
+				});				
+		});	
+		it( ' get room user by id' , function(done){
+
+			makeRequest('/rooms', 200, function(err, res){
+					if(err){ return done(err); }
+			
+					makeRequest('/rooms/' + res.body.data[0]._id + '/users', 200, function(err, res){
+						if(err){ return done(err); }
+							makeRequest('/rooms/' + res.body.data[0]._id + '/users/' + res.body.data[0]._id, 200, function(err, res){
+							if(err){ return done(err); }
+							expect(res.body.status).to.equal('OK');
+				
+							done();
+						});					
+					});					
+				});				
+		});	
+
+
+	});
+
+	describe(' Stories' ,function(){
+		it(' get ' , function(done){			
+			makeRequest('/Stories', 200, function(err, res){
+					if(err){ return done(err); }
+					expect(res.body.status).to.equal('OK');
+					expect(res.body.data).to.not.be.null;
+				
+					done();
+			});
+		});
+		it(' get by id ', function(done){
+				makeRequest('/Stories', 200, function(err, res){
+					if(err){ return done(err); }
+			
+					makeRequest('/Stories/' + res.body.data[0]._id, 200, function(err, res){
+						if(err){ return done(err); }
+						expect(res.body.status).to.equal('OK');
+				
+						done();
+					});					
+				});							
+		});		
+	});
+	describe(' users' ,function(){
+		it(' get ' , function(done){			
+			makeRequest('/users', 200, function(err, res){
+					if(err){ return done(err); }
+					expect(res.body.status).to.equal('OK');
+					expect(res.body.data).to.not.be.null;
+				
+					done();
+			});
+		});
+		it(' get by id ', function(done){
+				makeRequest('/users', 200, function(err, res){
+					if(err){ return done(err); }
+			
+					makeRequest('/users/' + res.body.data[0]._id, 200, function(err, res){
+						if(err){ return done(err); }
+						expect(res.body.status).to.equal('OK');
+				
+						done();
+					});					
+				});							
+		});		
+	});
+
+
+
 });
+
+
 
 /*
 describe('without params', function(){

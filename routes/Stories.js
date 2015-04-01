@@ -15,7 +15,7 @@ module.exports = function(router, Stories){
                 res.send(err);
             }
             res.status(201);
-            res.json({status : "OK", message: "Story is aangemaakt"});
+            res.json({status : "OK", message: "Story is aangemaakt", data: story });
         });
     })
         .get(function(req, res){

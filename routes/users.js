@@ -16,7 +16,7 @@ module.exports = function(router, User){
                 res.send(err);
             }
             res.status(201);
-            res.json({status : "OK", message: "User is aangemaakt" + req.body.username});
+            res.json({status : "OK", message: "User is aangemaakt" , data : user});
         });
     })
         .get(function(req, res){

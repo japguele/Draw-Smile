@@ -24,7 +24,7 @@ module.exports = function(router, Images){
                 res.send(err);
             }
             res.status(201);
-            res.json({status : "OK", message: "Images is aangemaakt"});
+            res.json({status : "OK", message: "Images is aangemaakt", data : Images});
         });
     });
        

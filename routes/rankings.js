@@ -14,7 +14,7 @@ module.exports = function(router, Ranking){
                 res.send(err);
             }
             res.status(201);
-            res.json({status : "OK", message: "Ranking is aangemaakt"});
+            res.json({status : "OK", message: "Ranking is aangemaakt", data : ranking});
         });
     })
         .get(function(req, res){
