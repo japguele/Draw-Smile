@@ -107,7 +107,7 @@ module.exports = function(router, Room , Images){
                     if(err) res.send(err);
 
                     res.status(200);
-                    res.json({status : "OK", message: "Updaten gelukt"});
+                    res.json({status : "OK", message: "Updaten gelukt", data:room});
                 });
             });            
         });

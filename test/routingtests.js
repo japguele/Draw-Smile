@@ -74,6 +74,21 @@ function makePost(route, params ,statusCode, done){
 	
 
 }
+function makePut(route, params ,statusCode, done){
+
+	 request(app)
+		.put(route)
+		.type('json')
+		.send(params)
+		.expect(statusCode)
+		.end(function(err,res){
+			if(err){return done(err);}
+			done(null,res);
+		});
+	
+
+}
+
 
 
 
@@ -174,6 +189,35 @@ describe('Testing route ', function(){
 					});					
 				});							
 		});	
+		it(' put room ', function(done){
+				makeRequest('/rooms', 200, function(err, res){
+					if(err){ return done(err); }
+			var newdata = {name : res.body.data[0].name + "t"}
+					makePut('/rooms/' + res.body.data[0]._id,newdata, 200, function(err, res2){
+						if(err){ return done(err); }
+						expect(res2.body.status).to.equal('OK');
+						expect(res2.body.data.name).to.equal(res.body.data[0].name + "t")				
+						done();
+					});					
+				});							
+		});	
+
+  
+
+		it( 'post room', function(done){
+			  var room = {"name" : "testroom","timer" : 100,"roomsize" : 5,"started" : false}
+		
+			makePost('/rooms',room,201,function(err,res){
+				if(err){return done(err);}
+				expect(res.body.status).to.equal('OK');
+				expect(res.body.data.name).to.not.be.null;		
+				
+				done();
+
+			});
+		});	
+
+
 		it( ' get roomusers' , function(done){
 
 			makeRequest('/rooms', 200, function(err, res){
@@ -186,7 +230,31 @@ describe('Testing route ', function(){
 						done();
 					});					
 				});				
+		});
+		it( 'post roomuser', function(done){
+			 	makeRequest('/rooms', 200, function(err, res){
+					if(err){ return done(err); }
+					var roomuser = {			 
+        				story_part : 1,
+        				completed : false
+        				}
+			
+					makePost('/rooms/' + res.body.data[0]._id + '/users', roomuser,200, function(err, res2){
+						if(err){ return done(err); }
+						expect(res2.body.status).to.equal('OK');
+						expect(res2.body.data.story_part).to.not.be.null;	
+						done();
+					});					
+				});				
+
+
 		});	
+
+
+
+
+
+
 		it( ' get room user by id' , function(done){
 
 			makeRequest('/rooms', 200, function(err, res){
@@ -208,20 +276,6 @@ describe('Testing route ', function(){
 
      
 
-  
-
-		it( 'post room', function(done){
-			  var room = {"name" : "testroom","timer" : 100,"roomsize" : 5,"started" : false}
-		
-			makePost('/rooms',room,201,function(err,res){
-				if(err){return done(err);}
-				expect(res.body.status).to.equal('OK');
-				expect(res.body.data.name).to.not.be.null;		
-				
-				done();
-
-			});
-		});	
 
 
 	});
@@ -296,6 +350,21 @@ describe('Testing route ', function(){
 						done();
 					});					
 				});							
+		});	
+		it(' put user ', function(done){
+			makeRequest('/users', 200, function(err, res){
+					if(err){ return done(err); }
+			var newdata = {username : res.body.data[0].username + "t"}
+					makePut('/users/' + res.body.data[0]._id, newdata,200, function(err, res2){
+						if(err){ return done(err); }
+						expect(res2.body.status).to.equal('OK');
+						expect(res2.body.data.username).to.equal(res.body.data[0].username + "t")		
+						done();
+					});					
+				});							
+			
+			
+							
 		});	
 		it( 'post user', function(done){
 			  var user = {"password": "te",

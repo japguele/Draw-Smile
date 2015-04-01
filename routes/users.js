@@ -88,13 +88,20 @@ module.exports = function(router, User,Images){
                             user.save(function(err){
                                 if(err){ res.send(err)};
                                 res.status(200);
-                                res.json({status : "OK", message: "Updaten gelukt"});
+                                res.json({status : "OK", message: "Updaten gelukt", data:user});
                             });
 
 
                          });
        
+                }else{
+                     user.save(function(err){
+                                if(err){ res.send(err)};
+                                res.status(200);
+                                res.json({status : "OK", message: "Updaten gelukt",data: user});
+                            });
                 }
+
 
         
                 
