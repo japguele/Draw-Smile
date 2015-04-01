@@ -1,0 +1,61 @@
+<!DOCTYPE HTML >
+<html>
+<head>
+	<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+	</head>
+	<body>
+		Welcome to admin page
+
+		
+		<button onclick="getdata()">get Users</button>
+	
+		<table id="users">
+			<tr>
+				<th>
+					username
+				</th>
+				<th>
+					img
+				</th>
+			</tr>
+		</table>
+
+
+
+
+		 <iframe src="chat.html" width="400" height="400"></iframe>
+
+		<script >
+	
+
+		function getdata(){
+		
+
+
+			$.getJSON( "https://radiant-gorge-2358.herokuapp.com/users", function( json ) {
+			console.log( "JSON Data: " + json );
+});
+
+		
+
+
+		/*	//	alert(a);
+		$.getJSON( "https://radiant-gorge-2358.herokuapp.com/users", function( data ) {
+		alert(data);
+			for (var i = data.users.length - 1; i >= 0; i--) {
+			//$('users').append('<tr><td>'+ data.users[i].name; +'</td><td> <img src="data:image/png;base64,'+data.users[i].image;+ '"/></td></tr>');
+				
+				
+			};
+		});
+*/
+		}
+
+		</script>
+
+		test
+	</body>
+
+
+
+</html>

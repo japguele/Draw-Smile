@@ -7,12 +7,12 @@ module.exports = function(router, passport) {
   /* GET login page. */
   router.get('/login', function(req, res) {
     // Display the Login page with any flash message, if any
-    res.render('index', { message: req.flash('message') });
+    res.render('login', { message: req.flash('message') });
   });
  
   /* Handle Login POST */
   router.post('/login', passport.authenticate('login', {
-    successRedirect: '/users',
+    successRedirect: '/admin',
     failureRedirect: '/login',
     failureFlash : true 
   }));
@@ -24,7 +24,7 @@ module.exports = function(router, passport) {
  
   /* Handle Registration POST */
   router.post('/signup', passport.authenticate('signup', {
-    successRedirect: '/login',
+    successRedirect: '/admin',
     failureRedirect: '/signup',
     failureFlash : true 
   }));

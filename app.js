@@ -6,7 +6,8 @@
 var app = require('express')();
 var express = require('express');
 var server = require('http').createServer(app);
-
+var io = require('socket.io')(server);
+var path = require('path');
 var mongoose = require('mongoose');
 var passport = require('passport');
 var flash    = require('connect-flash');
@@ -42,13 +43,19 @@ require('./config/passport')(passport,User);
 // routes ======================================================================
 
 var router = express.Router();
-/*
+
 var isAuthenticated = function (req, res, next) {
     if (req.isAuthenticated())
       return next();
     
     res.redirect('/login');
-};*/
+};
+
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 var loginRoutes = require('./routes/login.js')(router, passport);
 
@@ -59,10 +66,15 @@ var userRoutes = require('./routes/users.js')(router, User,Images);
 var roomRoutes = require('./routes/rooms.js')(router, Room,Images);
 var rankings = require('./routes/rankings.js')(router, Rank);
 
+//router.use(isAuthenticated);
+var admin =  require('./routes/admin.js')(router);
 
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
+
+app.use(express.static(path.join(__dirname, 'views')));
+
 
 
 app.use(loginRoutes);
@@ -71,19 +83,20 @@ app.use('/',  roomRoutes);
 app.use('/',  stories);
 app.use('/',  images);
 app.use('/',rankings);
+app.use('/',admin);
 app.set('view engine', 'jade');
 
 // ================================================
 // ================= IO SOCKET ====================
 // ================================================
 console.log("Reloaded");
-/*
+
 io.sockets.on('connection', function(socket){
   socket.on('chat message', function(msg,id){
     io.sockets.emit('chat message ' + id, msg);
   });
 });
-*/
+
 server.listen(process.env.PORT || 5000);
 
 // ================================================
