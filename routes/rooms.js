@@ -60,7 +60,7 @@ module.exports = function(router, Room , Images){
 
     router.route('/rooms/:room_id')
         .get(function(req, res){
-              Room.find(req.params.room_id)
+              Room.findById(req.params.room_id)
                 .populate('users.user')
                 .exec(function(err, rooms){
                   if(err){
@@ -126,9 +126,9 @@ module.exports = function(router, Room , Images){
 
         })
         .post(function(req,res){
-            console.log(req.body)
+            console.log(req.body.user)
             Room.findByIdAndUpdate(req.params.room_id,
-                {$push: {"users": {user: req.body.user , image: req.body.image,story_part: req.body.story_part,completed: req.body.completed}}},  
+                {$push: {"users": {user: req.body.user ,story_part: req.body.story_part,completed: req.body.completed}}},  
              {safe: true, upsert: true},
               function(err, model) {
                console.log(err);
@@ -137,7 +137,7 @@ module.exports = function(router, Room , Images){
 
            
                     res.status(200);
-                    res.json({status : "OK", message: "Updaten gelukt", data : user});
+                    res.json({status : "OK", message: "Updaten gelukt", data:{user: req.body.user , story_part: req.body.story_part,completed: req.body.completed}});
 
           
 

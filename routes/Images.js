@@ -22,9 +22,10 @@ module.exports = function(router, Images){
             if(err){
                 res.json({status : "ERROR",  message: "Fout bij het aanmaken van een Images" });
                 res.send(err);
-            }
+            }else{
             res.status(201);
-            res.json({status : "OK", message: "Images is aangemaakt", data : Images});
+            res.json({status : "OK", message: "Images is aangemaakt", data : images});
+             }
         });
     });
        

@@ -56,6 +56,19 @@ function makeRequest(route, statusCode, done){
 };
 
 
+function makePost(route, params ,statusCode, done){
+
+	 request(app)
+		.post(route)
+		.send(params)
+		.expect(statusCode)
+		.end(function(err,res){
+			if(err){return done(err);}
+			done(null,res);
+		});
+	
+
+}
 
 
 
@@ -84,6 +97,19 @@ describe('Testing route ', function(){
 					});					
 				});						
 		});
+		it( 'post Image', function(done){
+			var images = "image=aaaaaaa";
+			makePost('/Images',images,200,function(err,res){
+				if(err){return done(err);}
+				expect(res.body.status).to.equal('OK');
+				console.log(res.body);
+				
+				done();
+
+			});
+		});
+
+
 	});
 	describe(' Rankings' ,function(){
 		it(' get ' , function(done){			
@@ -147,10 +173,10 @@ describe('Testing route ', function(){
 
 			makeRequest('/rooms', 200, function(err, res){
 					if(err){ return done(err); }
-			
-					makeRequest('/rooms/' + res.body.data[0]._id + '/users', 200, function(err, res){
+				var roomId = res.body.data[0]._id
+					makeRequest('/rooms/' + roomId + '/users', 200, function(err, res){
 						if(err){ return done(err); }
-							makeRequest('/rooms/' + res.body.data[0]._id + '/users/' + res.body.data[0]._id, 200, function(err, res){
+							makeRequest('/rooms/' + roomId + '/users/' + res.body.data[0]._id, 200, function(err, res){
 							if(err){ return done(err); }
 							expect(res.body.status).to.equal('OK');
 				
