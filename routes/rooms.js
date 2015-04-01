@@ -3,7 +3,7 @@ module.exports = function(router, Room , Images){
     router.route('/rooms')
         .post(function(req, res){
 
-             console.log(req.body);
+            
             var room = new Room();
             room.name = req.body.name;
             room.timer = req.body.timer;
@@ -126,12 +126,15 @@ module.exports = function(router, Room , Images){
 
         })
         .post(function(req,res){
-            console.log(req.body.user)
+       
             Room.findByIdAndUpdate(req.params.room_id,
                 {$push: {"users": {user: req.body.user ,story_part: req.body.story_part,completed: req.body.completed}}},  
              {safe: true, upsert: true},
               function(err, model) {
-               console.log(err);
+              if(err){
+                 res.json({status : "ERROR", message: "Fout bij het ophalen van Rooms"});
+                    res.send(err);
+              }
              }
             );
 
@@ -210,8 +213,6 @@ module.exports = function(router, Room , Images){
                     }
 
                 
-
-                    console.log("------------------")
                     if(req.body.image != null){      
                         var images = new Images();
                         images.image = req.body.image; 
@@ -220,7 +221,7 @@ module.exports = function(router, Room , Images){
                                res.json({status : "ERROR",  message: "Fout bij het aanmaken van een Images" });
                                res.send(err);
                             } 
-                            console.log(image._id);
+                  
                             room.users[count].image = image._id;         
                             room.save(function(err){
                                 if(err){ res.send(err)};

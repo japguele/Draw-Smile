@@ -22,10 +22,16 @@ module.exports = function(router, User,Images){
                 user.image = image._id;         
                 user.save(function(err){
                     if(err){ res.send(err)};
-                        res.status(200);
-                        res.json({status : "OK", message: "Updaten gelukt"});
+                        res.status(201);
+                        res.json({status : "OK", message: "user aangemaakt", data: user});
                     });
                 });
+        }else{
+            user.save(function(err){
+                    if(err){ res.send(err)};
+                        res.status(201);
+                        res.json({status : "OK",  message: "user aangemaakt", data: user});
+                    });
         }
  		
     })

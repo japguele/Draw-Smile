@@ -24,6 +24,10 @@ var Room = require('../app/models/Room.js');
 var Rank = require('../app/models/Rankings.js');
 
 
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
+
+
 
 
 mongoose.connect("mongodb://user:user@ds039211.mongolab.com:39211/smile");
@@ -60,6 +64,7 @@ function makePost(route, params ,statusCode, done){
 
 	 request(app)
 		.post(route)
+		.type('json')
 		.send(params)
 		.expect(statusCode)
 		.end(function(err,res){
@@ -98,11 +103,12 @@ describe('Testing route ', function(){
 				});						
 		});
 		it( 'post Image', function(done){
-			var images = "image=aaaaaaa";
-			makePost('/Images',images,200,function(err,res){
+			var x = {"image": "bae64string"}
+		
+			makePost('/Images',x,201,function(err,res){
 				if(err){return done(err);}
 				expect(res.body.status).to.equal('OK');
-				console.log(res.body);
+				expect(res.body.data.image).to.not.be.null;		
 				
 				done();
 
@@ -132,7 +138,19 @@ describe('Testing route ', function(){
 						done();
 					});					
 				});							
-		});		
+		});	
+			it( 'post ranking', function(done){
+			  
+		
+			makePost('/Rankings',{"score" : 100 },201,function(err,res){
+				if(err){return done(err);}
+				expect(res.body.status).to.equal('OK');
+				expect(res.body.data.score).to.not.be.null;		
+				
+				done();
+
+			});
+		});	
 	});
 	describe(' Rooms' ,function(){
 		it(' get ' , function(done){			
@@ -174,16 +192,35 @@ describe('Testing route ', function(){
 			makeRequest('/rooms', 200, function(err, res){
 					if(err){ return done(err); }
 				var roomId = res.body.data[0]._id
-					makeRequest('/rooms/' + roomId + '/users', 200, function(err, res){
+					makeRequest('/rooms/' + roomId + '/users', 200, function(err, res1){
 						if(err){ return done(err); }
-							makeRequest('/rooms/' + roomId + '/users/' + res.body.data[0]._id, 200, function(err, res){
+							makeRequest('/rooms/' + roomId + '/users/' + res1.body.data[0].user, 200, function(err, res2){
 							if(err){ return done(err); }
-							expect(res.body.status).to.equal('OK');
+							expect(res2.body.status).to.equal('OK');
 				
 							done();
 						});					
 					});					
 				});				
+		});	
+
+
+
+     
+
+  
+
+		it( 'post room', function(done){
+			  var room = {"name" : "testroom","timer" : 100,"roomsize" : 5,"started" : false}
+		
+			makePost('/rooms',room,201,function(err,res){
+				if(err){return done(err);}
+				expect(res.body.status).to.equal('OK');
+				expect(res.body.data.name).to.not.be.null;		
+				
+				done();
+
+			});
 		});	
 
 
@@ -211,6 +248,32 @@ describe('Testing route ', function(){
 					});					
 				});							
 		});		
+		it( 'post story', function(done){
+			  var story = {name     : "drie biggetjes",   
+			  variants    : [{
+          			text : "er waren drie kleinen biggetjes in een huis. Het huis was rood met wittenstippen"
+          		},
+          		{
+          			text : "er waren drie groote biggetjes in een huis. Het huis was rood met wittenstippen"
+          		},
+          		{
+          		text : "er waren drie kleinen biggetjes in een huis. Het huis was wit met roodenstippen"
+          		},
+          		{
+          			text : "er waren drie groote biggetjes in een huis. Het huis was wit met roodenstippen"
+        		}],   
+        max_num_players: 2
+    }
+		
+			makePost('/stories',story,201,function(err,res){
+				if(err){return done(err);}
+				expect(res.body.status).to.equal('OK');
+				expect(res.body.data.name).to.not.be.null;		
+				
+				done();
+
+			});
+		});	
 	});
 	describe(' users' ,function(){
 		it(' get ' , function(done){			
@@ -233,7 +296,22 @@ describe('Testing route ', function(){
 						done();
 					});					
 				});							
-		});		
+		});	
+		it( 'post user', function(done){
+			  var user = {"password": "te",
+            "username": "te"			
+   			}
+		
+			makePost('/users',user,201,function(err,res){
+				if(err){return done(err);}
+				expect(res.body.status).to.equal('OK');
+				expect(res.body.data.username).to.not.be.null;		
+				
+				done();
+
+			});
+		});	
+
 	});
 
 
