@@ -96,6 +96,18 @@ function makePut(route, params ,statusCode, done){
 
 describe('Testing route ', function(){	
 	describe(' images' ,function(){
+		it( 'post Image', function(done){
+			var x = {"image": "bae64string"}
+		
+			makePost('/Images',x,201,function(err,res){
+				if(err){return done(err);}
+				expect(res.body.status).to.equal('OK');
+				expect(res.body.data.image).to.not.be.null;		
+				
+				done();
+
+			});
+		});
 		it(' get ' , function(done){			
 			makeRequest('/Images', 200, function(err, res){
 					if(err){ return done(err); }
@@ -117,22 +129,23 @@ describe('Testing route ', function(){
 					});					
 				});						
 		});
-		it( 'post Image', function(done){
-			var x = {"image": "bae64string"}
 		
-			makePost('/Images',x,201,function(err,res){
-				if(err){return done(err);}
-				expect(res.body.status).to.equal('OK');
-				expect(res.body.data.image).to.not.be.null;		
-				
-				done();
-
-			});
-		});
 
 
 	});
 	describe(' Rankings' ,function(){
+		it( 'post ranking', function(done){
+			  
+		
+			makePost('/Rankings',{"score" : 100 },201,function(err,res){
+				if(err){return done(err);}
+				expect(res.body.status).to.equal('OK');
+				expect(res.body.data.score).to.not.be.null;		
+				
+				done();
+
+			});
+		});	
 		it(' get ' , function(done){			
 			makeRequest('/Rankings', 200, function(err, res){
 					if(err){ return done(err); }
@@ -154,182 +167,24 @@ describe('Testing route ', function(){
 					});					
 				});							
 		});	
-			it( 'post ranking', function(done){
-			  
-		
-			makePost('/Rankings',{"score" : 100 },201,function(err,res){
-				if(err){return done(err);}
-				expect(res.body.status).to.equal('OK');
-				expect(res.body.data.score).to.not.be.null;		
-				
-				done();
-
-			});
-		});	
-	});
-	describe(' Rooms' ,function(){
-		it(' get ' , function(done){			
-			makeRequest('/rooms', 200, function(err, res){
-					if(err){ return done(err); }
-					expect(res.body.status).to.equal('OK');
-					expect(res.body.data).to.not.be.null;
-				
-					done();
-			});
-		});		
-		it(' get by id ', function(done){
-				makeRequest('/rooms', 200, function(err, res){
-					if(err){ return done(err); }
 			
-					makeRequest('/rooms/' + res.body.data[0]._id, 200, function(err, res){
-						if(err){ return done(err); }
-						expect(res.body.status).to.equal('OK');
-				
-						done();
-					});					
-				});							
-		});	
-		it(' put room ', function(done){
-				makeRequest('/rooms', 200, function(err, res){
-					if(err){ return done(err); }
-			var newdata = {name : res.body.data[0].name + "t"}
-					makePut('/rooms/' + res.body.data[0]._id,newdata, 200, function(err, res2){
-						if(err){ return done(err); }
-						expect(res2.body.status).to.equal('OK');
-						expect(res2.body.data.name).to.equal(res.body.data[0].name + "t")				
-						done();
-					});					
-				});							
-		});	
-
-  
-
-		it( 'post room', function(done){
-			  var room = {"name" : "testroom","timer" : 100,"roomsize" : 5,"started" : false}
+	});
+		describe(' users' ,function(){
+			it( 'post user', function(done){
+			  var user = {"password": "te",
+            "username": "te"			
+   			}
 		
-			makePost('/rooms',room,201,function(err,res){
+			makePost('/users',user,201,function(err,res){
 				if(err){return done(err);}
 				expect(res.body.status).to.equal('OK');
-				expect(res.body.data.name).to.not.be.null;		
+				expect(res.body.data.username).to.not.be.null;		
 				
 				done();
 
 			});
 		});	
 
-
-		it( ' get roomusers' , function(done){
-
-			makeRequest('/rooms', 200, function(err, res){
-					if(err){ return done(err); }
-			
-					makeRequest('/rooms/' + res.body.data[0]._id + '/users', 200, function(err, res){
-						if(err){ return done(err); }
-						expect(res.body.status).to.equal('OK');
-				
-						done();
-					});					
-				});				
-		});
-		it( 'post roomuser', function(done){
-			 	makeRequest('/rooms', 200, function(err, res){
-					if(err){ return done(err); }
-					var roomuser = {			 
-        				story_part : 1,
-        				completed : false
-        				}
-			
-					makePost('/rooms/' + res.body.data[0]._id + '/users', roomuser,200, function(err, res2){
-						if(err){ return done(err); }
-						expect(res2.body.status).to.equal('OK');
-						expect(res2.body.data.story_part).to.not.be.null;	
-						done();
-					});					
-				});				
-
-
-		});	
-
-
-
-
-
-
-		it( ' get room user by id' , function(done){
-
-			makeRequest('/rooms', 200, function(err, res){
-					if(err){ return done(err); }
-				var roomId = res.body.data[0]._id
-					makeRequest('/rooms/' + roomId + '/users', 200, function(err, res1){
-						if(err){ return done(err); }
-							makeRequest('/rooms/' + roomId + '/users/' + res1.body.data[0].user, 200, function(err, res2){
-							if(err){ return done(err); }
-							expect(res2.body.status).to.equal('OK');
-				
-							done();
-						});					
-					});					
-				});				
-		});	
-
-
-
-     
-
-
-
-	});
-
-	describe(' Stories' ,function(){
-		it(' get ' , function(done){			
-			makeRequest('/Stories', 200, function(err, res){
-					if(err){ return done(err); }
-					expect(res.body.status).to.equal('OK');
-					expect(res.body.data).to.not.be.null;
-				
-					done();
-			});
-		});
-		it(' get by id ', function(done){
-				makeRequest('/Stories', 200, function(err, res){
-					if(err){ return done(err); }
-			
-					makeRequest('/Stories/' + res.body.data[0]._id, 200, function(err, res){
-						if(err){ return done(err); }
-						expect(res.body.status).to.equal('OK');
-				
-						done();
-					});					
-				});							
-		});		
-		it( 'post story', function(done){
-			  var story = {name     : "drie biggetjes",   
-			  variants    : [{
-          			text : "er waren drie kleinen biggetjes in een huis. Het huis was rood met wittenstippen"
-          		},
-          		{
-          			text : "er waren drie groote biggetjes in een huis. Het huis was rood met wittenstippen"
-          		},
-          		{
-          		text : "er waren drie kleinen biggetjes in een huis. Het huis was wit met roodenstippen"
-          		},
-          		{
-          			text : "er waren drie groote biggetjes in een huis. Het huis was wit met roodenstippen"
-        		}],   
-        max_num_players: 2
-    }
-		
-			makePost('/stories',story,201,function(err,res){
-				if(err){return done(err);}
-				expect(res.body.status).to.equal('OK');
-				expect(res.body.data.name).to.not.be.null;		
-				
-				done();
-
-			});
-		});	
-	});
-	describe(' users' ,function(){
 		it(' get ' , function(done){			
 			makeRequest('/users', 200, function(err, res){
 					if(err){ return done(err); }
@@ -366,22 +221,181 @@ describe('Testing route ', function(){
 			
 							
 		});	
-		it( 'post user', function(done){
-			  var user = {"password": "te",
-            "username": "te"			
-   			}
+	
+	});
+	describe(' Rooms' ,function(){
+		it( 'post room', function(done){
+			  var room = {"name" : "testroom","timer" : 100,"roomsize" : 5,"started" : false}
 		
-			makePost('/users',user,201,function(err,res){
+			makePost('/rooms',room,201,function(err,res){
 				if(err){return done(err);}
 				expect(res.body.status).to.equal('OK');
-				expect(res.body.data.username).to.not.be.null;		
+				expect(res.body.data.name).to.not.be.null;		
 				
 				done();
 
 			});
 		});	
+		it(' get ' , function(done){			
+			makeRequest('/rooms', 200, function(err, res){
+					if(err){ return done(err); }
+					expect(res.body.status).to.equal('OK');
+					expect(res.body.data).to.not.be.null;
+				
+					done();
+			});
+		});		
+		it(' get by id ', function(done){
+				makeRequest('/rooms', 200, function(err, res){
+					if(err){ return done(err); }
+			
+					makeRequest('/rooms/' + res.body.data[0]._id, 200, function(err, res){
+						if(err){ return done(err); }
+						expect(res.body.status).to.equal('OK');
+				
+						done();
+					});					
+				});							
+		});	
+		it(' put room ', function(done){
+				makeRequest('/rooms', 200, function(err, res){
+					if(err){ return done(err); }
+			var newdata = {name : res.body.data[0].name + "t"}
+					makePut('/rooms/' + res.body.data[0]._id,newdata, 200, function(err, res2){
+						if(err){ return done(err); }
+						expect(res2.body.status).to.equal('OK');
+						expect(res2.body.data.name).to.equal(res.body.data[0].name + "t")				
+						done();
+					});					
+				});							
+		});	
+
+  
+
+		
+
+
+		it( ' get roomusers' , function(done){
+
+			makeRequest('/rooms', 200, function(err, res){
+					if(err){ return done(err); }
+			
+					makeRequest('/rooms/' + res.body.data[0]._id + '/users', 200, function(err, res){
+						if(err){ return done(err); }
+						expect(res.body.status).to.equal('OK');
+				
+						done();
+					});					
+				});				
+		});
+		it( 'post roomuser', function(done){
+			makeRequest('/users', 200, function(err, res){
+					if(err){ return done(err); }
+					expect(res.body.status).to.equal('OK');
+					expect(res.body.data).to.not.be.null;
+				
+					
+		
+			 	makeRequest('/rooms', 200, function(err, res2){
+					if(err){ return done(err); }
+					var roomuser = {
+						user : res.body.data[0]._id,
+        				story_part : 1,
+        				completed : false
+        				}
+			
+					makePost('/rooms/' + res2.body.data[0]._id + '/users', roomuser,200, function(err, res3){
+						if(err){ return done(err); }
+						expect(res3.body.status).to.equal('OK');
+						expect(res3.body.data.story_part).to.not.be.null;	
+						done();
+					});					
+				});				
+
+			 });
+		});	
+
+
+
+
+
+
+		it( ' get room user by id' , function(done){
+
+			makeRequest('/rooms', 200, function(err, res){
+					if(err){ return done(err); }
+				var roomId = res.body.data[0]._id
+					makeRequest('/rooms/' + roomId + '/users', 200, function(err, res1){
+						if(err){ return done(err); }
+							makeRequest('/rooms/' + roomId + '/users/' + res1.body.data[0].user, 200, function(err, res2){
+							if(err){ return done(err); }
+							expect(res2.body.status).to.equal('OK');
+				
+							done();
+						});					
+					});					
+				});				
+		});	
+
+
+
+     
+
+
 
 	});
+
+	describe(' Stories' ,function(){
+		it( 'post story', function(done){
+			  var story = {name     : "drie biggetjes",   
+			  variants    : [{
+          			text : "er waren drie kleinen biggetjes in een huis. Het huis was rood met wittenstippen"
+          		},
+          		{
+          			text : "er waren drie groote biggetjes in een huis. Het huis was rood met wittenstippen"
+          		},
+          		{
+          		text : "er waren drie kleinen biggetjes in een huis. Het huis was wit met roodenstippen"
+          		},
+          		{
+          			text : "er waren drie groote biggetjes in een huis. Het huis was wit met roodenstippen"
+        		}],   
+        max_num_players: 2
+    }
+		
+			makePost('/stories',story,201,function(err,res){
+				if(err){return done(err);}
+				expect(res.body.status).to.equal('OK');
+				expect(res.body.data.name).to.not.be.null;		
+				
+				done();
+
+			});
+		});	
+		it(' get ' , function(done){			
+			makeRequest('/Stories', 200, function(err, res){
+					if(err){ return done(err); }
+					expect(res.body.status).to.equal('OK');
+					expect(res.body.data).to.not.be.null;
+				
+					done();
+			});
+		});
+		it(' get by id ', function(done){
+				makeRequest('/Stories', 200, function(err, res){
+					if(err){ return done(err); }
+			
+					makeRequest('/Stories/' + res.body.data[0]._id, 200, function(err, res){
+						if(err){ return done(err); }
+						expect(res.body.status).to.equal('OK');
+				
+						done();
+					});					
+				});							
+		});		
+		
+	});
+
 
 
 

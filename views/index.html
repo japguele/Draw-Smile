@@ -7,7 +7,6 @@
 		Welcome to admin page
 
 		
-		<button onclick="getdata()">get Users</button>
 	
 		<table id="users">
 			<tr>
@@ -28,28 +27,43 @@
 		<script >
 	
 
-		function getdata(){
 		
+		$(function() {
 
 
-			$.getJSON( "https://radiant-gorge-2358.herokuapp.com/users", function( json ) {
-			console.log( "JSON Data: " + json );
+
+			jQuery.ajax({
+        		url: "https://radiant-gorge-2358.herokuapp.com/users",
+       			type: "get",
+        		dataType: "json",
+        		async: false,
+        		success: function (data) {
+					console.log( "JSON Data: " + JSON.stringify(data) );
+					var obj = data.data;
+					console.log( "JSON Data: " + JSON.stringify(obj[i]) );
+					for (var i = obj.length - 1; i >= 0; i--) {
+						if(obj[i].image != null){
+							jQuery.ajax({
+        						url: "https://radiant-gorge-2358.herokuapp.com/images/" + obj[i].image.toString(),
+       							type: "get",
+        						dataType: "json",
+        						async: false,
+        						success: function (data) {
+        							$('#users').append('<tr><td>'+ JSON.stringify(obj[i].username) +'</td><td> <img src="data:image/png;base64,' + data.data.image.toString() + '"/></td></tr>');
+        						}
+				
+							});
+						}
+				
+					};
+       			 }
+    		});
+
+
+    
 });
-
 		
-
-
-		/*	//	alert(a);
-		$.getJSON( "https://radiant-gorge-2358.herokuapp.com/users", function( data ) {
-		alert(data);
-			for (var i = data.users.length - 1; i >= 0; i--) {
-			//$('users').append('<tr><td>'+ data.users[i].name; +'</td><td> <img src="data:image/png;base64,'+data.users[i].image;+ '"/></td></tr>');
-				
-				
-			};
-		});
-*/
-		}
+			
 
 		</script>
 

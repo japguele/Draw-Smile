@@ -67,7 +67,7 @@ var roomRoutes = require('./routes/rooms.js')(router, Room,Images);
 var rankings = require('./routes/rankings.js')(router, Rank);
 
 //router.use(isAuthenticated);
-//var admin =  require('./routes/admin.js')(router);
+var admin =  require('./routes/admin.js')(router);
 
 
 app.use(bodyParser.urlencoded({extended: true}));
@@ -83,7 +83,7 @@ app.use('/',  roomRoutes);
 app.use('/',  stories);
 app.use('/',  images);
 app.use('/',rankings);
-//app.use('/',admin);
+app.use('/',admin);
 app.set('view engine', 'jade');
 
 // ================================================
