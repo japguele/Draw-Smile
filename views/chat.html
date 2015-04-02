@@ -31,7 +31,7 @@
 var socket =  io.connect('https://radiant-gorge-2358.herokuapp.com/');
 
   $('form').submit(function(){
-    socket.emit('chat message', $('#m').val(), '1');
+    socket.emit('chat message ', $('#m').val(), '1');
     $('#m').val('');
     return false;
   });
