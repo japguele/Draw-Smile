@@ -7,6 +7,7 @@
     "test": "istanbul cover node_modules/mocha/bin/_mocha -- -R spec"
   },
   "dependencies": {
+   
     "socket.io" : "latest",
     "bcrypt-nodejs": "latest",
     "body-parser": "~1.0.0",
