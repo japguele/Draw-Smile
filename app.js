@@ -17,7 +17,7 @@ var cookieParser = require('cookie-parser')
 var bodyParser   = require('body-parser');
 var multer       = require('multer');
 var session      = require('express-session');
-/*
+
  // pass passport for configuration
 var Images = require('./app/models/Images.js');
 var Stories = require('./app/models/Stories.js')
