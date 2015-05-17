@@ -17,14 +17,14 @@ var cookieParser = require('cookie-parser')
 var bodyParser   = require('body-parser');
 var multer       = require('multer');
 var session      = require('express-session');
-/*
- // pass passport for configuration
+
+// pass passport for configuration
 var Images = require('./app/models/Images.js');
 var Stories = require('./app/models/Stories.js')
 var User = require('./app/models/User.js');
 var Room = require('./app/models/Room.js');
 var Rank = require('./app/models/Rankings.js');
-/*
+
 
 mongoose.connect("mongodb://user:user@ds039211.mongolab.com:39211/smile");
 
@@ -65,7 +65,7 @@ app.use(function(req, res, next) {
 //router.use(isAuthenticated);
 //var admin =  require('./routes/admin.js')(router);
 
-*/
+
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(multer({
@@ -77,7 +77,7 @@ app.use(multer({
 
 app.use(express.static(path.join(__dirname, 'views')));
 
-/*
+
 
 //app.use(loginRoutes);
 app.use('/users',  require('./routes/users.js')(express.Router(), User,Images));
@@ -85,7 +85,7 @@ app.use('/rooms',  require('./routes/rooms.js')(express.Router(), Room, User, Im
 app.use('/stories',  require('./routes/stories.js')(express.Router(), Stories));
 app.use('/images',  require('./routes/Images.js')(express.Router(), Images));
 //app.use('/rankings',rankings);
-*/
+
 app.get('/',function(req,res){
 	res.send("Welcome to the Smile & Draw Api");
 });
