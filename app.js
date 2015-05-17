@@ -21,7 +21,7 @@ var session      = require('express-session');
 // pass passport for configuration
 var Images = require('./app/models/Images.js');
 var Stories = require('./app/models/Stories.js')
-var User = require('./app/models/User.js');
+/*var User = require('./app/models/User.js');
 var Room = require('./app/models/Room.js');
 var Rank = require('./app/models/Rankings.js');
 
@@ -84,7 +84,7 @@ app.use('/users',  require('./routes/users.js')(express.Router(), User,Images));
 app.use('/rooms',  require('./routes/rooms.js')(express.Router(), Room, User, Images));
 app.use('/stories',  require('./routes/stories.js')(express.Router(), Stories));
 app.use('/images',  require('./routes/Images.js')(express.Router(), Images));
-//app.use('/rankings',rankings);
+//app.use('/rankings',rankings);*/
 
 app.get('/',function(req,res){
 	res.send("Welcome to the Smile & Draw Api");
