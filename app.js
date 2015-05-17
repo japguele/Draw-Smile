@@ -17,14 +17,14 @@ var cookieParser = require('cookie-parser')
 var bodyParser   = require('body-parser');
 var multer       = require('multer');
 var session      = require('express-session');
-/*
+
  // pass passport for configuration
 var Images = require('./app/models/Images.js');
 var Stories = require('./app/models/Stories.js')
 var User = require('./app/models/User.js');
 var Room = require('./app/models/Room.js');
 var Rank = require('./app/models/Rankings.js');
-
+/*
 
 mongoose.connect("mongodb://user:user@ds039211.mongolab.com:39211/smile");
 
