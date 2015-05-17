@@ -18,6 +18,24 @@ var bodyParser   = require('body-parser');
 var multer       = require('multer');
 var session      = require('express-session');
 
+var googleapis = require('googleapis');  
+
+    var OAuth2 = googleapis.auth.OAuth2;  
+
+    var folderID                    = '0ByBlhvMTqsYafmh1dlQwcEgzeHp1TW91TWhaYVIzMnpmT3lTMkNiRDhsQUlFR2dKM1YzdU0';
+
+    var SERVICE_ACCOUNT_EMAIL       = '154170383487-575b5vrcbbq0n1fca42hqunhibskpjlt@developer.gserviceaccount.com';  
+    var CLIENT_ID                   = '154170383487-575b5vrcbbq0n1fca42hqunhibskpjlt.apps.googleusercontent.com';  
+    var SERVICE_ACCOUNT_KEY_FILE    = 'drawme-0121e0201c86.json';  
+    var SCOPE = ['https://www.googleapis.com/auth/drive'];
+
+    var jwt = new googleapis.auth.JWT(  
+        SERVICE_ACCOUNT_EMAIL,    
+        SERVICE_ACCOUNT_KEY_FILE,       
+        null,
+        SCOPE
+    );
+
 // pass passport for configuration
 var Images = require('./app/models/Images.js');
 var Stories = require('./app/models/Stories.js')
@@ -81,7 +99,7 @@ app.use(express.static(path.join(__dirname, 'views')));
 app.use('/users',  require('./routes/users.js')(express.Router(), User,Images));
 app.use('/rooms',  require('./routes/rooms.js')(express.Router(), Room, User, Images));
 app.use('/stories',  require('./routes/stories.js')(express.Router(), Stories));
-app.use('/images',  require('./routes/Images.js')(express.Router(), Images));
+app.use('/images',  require('./routes/Images.js')(express.Router(), Images,googleapis));
 //app.use('/rankings',rankings);*/
 
 app.get('/',function(req,res){
