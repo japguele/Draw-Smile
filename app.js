@@ -80,7 +80,7 @@ app.use(express.static(path.join(__dirname, 'views')));
 //app.use(loginRoutes);*/
 app.use('/users',  require('./routes/users.js')(express.Router(), User,Images));
 app.use('/rooms',  require('./routes/rooms.js')(express.Router(), Room, User, Images));
-app.use('/stories',  require('./routes/stories.js')(express.Router(), Stories));
+//app.use('/stories',  require('./routes/stories.js')(express.Router(), Stories));
 //app.use('/images',  require('./routes/Images.js')(express.Router(), Images));
 //app.use('/rankings',rankings);*/
 
@@ -93,7 +93,7 @@ app.set('view engine', 'jade');
 // ================================================
 // ================= IO SOCKET ====================
 // ================================================
-console.log("Reloaded");
+//console.log("Reloaded");
 
 io.sockets.on('connection', function(socket){
   socket.on('chat message', function(msg,id){
