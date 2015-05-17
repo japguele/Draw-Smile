@@ -22,8 +22,8 @@ var session      = require('express-session');
 var Images = require('./app/models/Images.js');
 var Stories = require('./app/models/Stories.js')
 var User = require('./app/models/User.js');
-/*var Room = require('./app/models/Room.js');
-var Rank = require('./app/models/Rankings.js');*/
+var Room = require('./app/models/Room.js');
+var Rank = require('./app/models/Rankings.js');
 
 
 mongoose.connect("mongodb://user:user@ds039211.mongolab.com:39211/smile");
