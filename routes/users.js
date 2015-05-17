@@ -3,7 +3,7 @@
 module.exports = function(router, User,Images){
 
 
-    router.route('/users')
+    router.route('/')
         .post(function(req, res){
         var user = new User();
         user.username = req.body.username;
@@ -15,7 +15,11 @@ module.exports = function(router, User,Images){
             images.image = req.body.image; 
             images.save(function(err,image){
                  if(err){
-                    res.json({status : "ERROR",  message: "Fout bij het aanmaken van een Images" });
+                    res.json({
+                        status : "ERROR",  
+                        message: "Fout bij het aanmaken van een Images" 
+                    });
+                    
                     res.send(err);
                 } 
                 console.log(image._id);
@@ -26,16 +30,17 @@ module.exports = function(router, User,Images){
                         res.json({status : "OK", message: "user aangemaakt", data: user});
                     });
                 });
-        }else{
+        } else{
             user.save(function(err){
-                    if(err){ res.send(err)};
-                        res.status(201);
-                        res.json({status : "OK",  message: "user aangemaakt", data: user});
-                    });
+                if(err){ 
+                    res.send(err);
+                }
+                res.status(201);
+                res.json({status : "OK",  message: "user aangemaakt", data: user});
+            });
         }
  		
-    })
-        .get(function(req, res){
+    }).get(function(req, res){
             
         User.find(function(err, users){
             if(err){
@@ -47,7 +52,7 @@ module.exports = function(router, User,Images){
         });
     });
 
-    router.route('/users/:user_id')
+    router.route('/:user_id')
         .get(function(req, res){
             User.findById(req.params.user_id, function(err, user){
                 if(err){
@@ -107,6 +112,28 @@ module.exports = function(router, User,Images){
                 
             });            
         });
+
+    router.route('/valid').post(function(req, res) {
+        if (req.body.username != undefined && req.body.password != undefined) {
+            var query = User.find({});
+            query
+                .where('username', req.body.username)
+                .where('password', req.body.password)
+                .limit(1)
+                .exec(function(err, user) {
+                    if(err){ 
+                        res.send(err);
+                    }
+
+                    res.status(200);
+                    res.json({
+                        status : "OK", 
+                        message : "Gebruiker gevonden", 
+                        data : user[0]
+                    });
+                });
+        }
+    });
 
        
 

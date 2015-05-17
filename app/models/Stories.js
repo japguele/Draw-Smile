@@ -4,19 +4,11 @@ var mongoose     = require('mongoose');
 var Schema       = mongoose.Schema;
 // define the schema for our user model
 var storiesSchema = mongoose.Schema({
-
-
-        name     : {type : String , required: true},
- 
+        name     : {type : String , required: true}, 
         variants    : [{
           	text : {type :String}
-
         }],   
         max_num_players: Number
-
-
-  
-
 });
 
 

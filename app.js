@@ -15,6 +15,7 @@ var flash    = require('connect-flash');
 var morgan       = require('morgan');
 var cookieParser = require('cookie-parser')
 var bodyParser   = require('body-parser');
+var multer       = require('multer');
 var session      = require('express-session');
 
  // pass passport for configuration
@@ -23,8 +24,6 @@ var Stories = require('./app/models/Stories.js')
 var User = require('./app/models/User.js');
 var Room = require('./app/models/Room.js');
 var Rank = require('./app/models/Rankings.js');
-
-
 
 
 mongoose.connect("mongodb://user:user@ds039211.mongolab.com:39211/smile");
@@ -57,14 +56,11 @@ app.use(function(req, res, next) {
   next();
 });
 
-var loginRoutes = require('./routes/login.js')(router, passport);
+//var loginRoutes = require('./routes/login.js')(router, passport);
 
 //router.use(isAuthenticated);
-var stories = require('./routes/Stories.js')(router, Stories);
-var images = require('./routes/Images.js')(router, Images);
-var userRoutes = require('./routes/users.js')(router, User,Images);
-var roomRoutes = require('./routes/rooms.js')(router, Room,Images);
-var rankings = require('./routes/rankings.js')(router, Rank);
+//var images = require('./routes/Images.js')(router, Images);
+//var rankings = require('./routes/rankings.js')(router, Rank);*/
 
 //router.use(isAuthenticated);
 //var admin =  require('./routes/admin.js')(router);
@@ -72,18 +68,28 @@ var rankings = require('./routes/rankings.js')(router, Rank);
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
+app.use(multer({
+  dest: './uploads/',
+  rename: function (fieldname, filename) {
+    return filename.replace(/\W+/g, '-').toLowerCase() + Date.now()
+  }
+}));
 
 app.use(express.static(path.join(__dirname, 'views')));
 
 
 
-app.use(loginRoutes);
-app.use('/',  userRoutes);
-app.use('/',  roomRoutes);
-app.use('/',  stories);
-app.use('/',  images);
-app.use('/',rankings);
-//app.use('/',admin);
+//app.use(loginRoutes);
+app.use('/users',  require('./routes/users.js')(express.Router(), User,Images));
+app.use('/rooms',  require('./routes/rooms.js')(express.Router(), Room, User, Images));
+app.use('/stories',  require('./routes/stories.js')(express.Router(), Stories));
+app.use('/images',  require('./routes/Images.js')(express.Router(), Images));
+//app.use('/rankings',rankings);
+
+app.get('/',function(req,res){
+	res.send("Welcome to the Smile & Draw Api");
+});
+
 app.set('view engine', 'jade');
 
 // ================================================

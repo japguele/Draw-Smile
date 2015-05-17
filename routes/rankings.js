@@ -1,7 +1,7 @@
 module.exports = function(router, Ranking){
 
  
-    router.route('/rankings')
+    router.route('/')
         .post(function(req, res){
         var ranking = new Ranking();
         ranking.score = req.body.score;
@@ -28,7 +28,7 @@ module.exports = function(router, Ranking){
         });
     });
 
-    router.route('/rankings/:ranking_id')
+    router.route('/:ranking_id')
         .get(function(req, res){
             Ranking.findById(req.params.ranking_id, function(err, ranking){
                 if(err){
