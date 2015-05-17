@@ -5,7 +5,6 @@ var Schema       = mongoose.Schema;
 var imagesSchema = mongoose.Schema({
        googledrive_id : {type: String,required: true},
        title : {type: String,required: true}
-       image : [{type: String}]
 });
 
 
