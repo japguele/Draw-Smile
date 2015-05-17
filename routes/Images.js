@@ -1,5 +1,4 @@
 module.exports = function(router, Images){
-<<<<<<< HEAD
     /**
      * Init google api
      */
@@ -43,7 +42,6 @@ module.exports = function(router, Images){
         fs.writeFile("images/out.png", base64Data, 'base64', function(err) {
           console.log(err);
         });*/
-=======
  router.route('/Images')
      .post(function(req, res){
 
@@ -54,18 +52,11 @@ module.exports = function(router, Images){
         for (var i = array.length - 1; i >= 0; i--) {
           images.image[i] = array[i]
         };
-    
->>>>>>> 111555edea5de5d8487cb5f02eb6e5bb1fd697fc
 
         var drive = googleapis.drive({ 
             version: 'v2', 
             auth: jwt 
         });
-<<<<<<< HEAD
-=======
-   });
-       
->>>>>>> 111555edea5de5d8487cb5f02eb6e5bb1fd697fc
 
         drive.files.insert({
             resource: {
