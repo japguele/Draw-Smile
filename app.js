@@ -17,7 +17,7 @@ var cookieParser = require('cookie-parser')
 var bodyParser   = require('body-parser');
 var multer       = require('multer');
 var session      = require('express-session');
-
+/*
  // pass passport for configuration
 var Images = require('./app/models/Images.js');
 var Stories = require('./app/models/Stories.js')
@@ -27,7 +27,7 @@ var Rank = require('./app/models/Rankings.js');
 
 
 mongoose.connect("mongodb://user:user@ds039211.mongolab.com:39211/smile");
-
+/*
 // set up our express application
 app.use(morgan('dev')); // log every request to the console
 app.use(cookieParser()); // read cookies (needed for auth)
@@ -60,7 +60,7 @@ app.use(function(req, res, next) {
 
 //router.use(isAuthenticated);
 //var images = require('./routes/Images.js')(router, Images);
-//var rankings = require('./routes/rankings.js')(router, Rank);*/
+//var rankings = require('./routes/rankings.js')(router, Rank);
 
 //router.use(isAuthenticated);
 //var admin =  require('./routes/admin.js')(router);
@@ -102,7 +102,7 @@ io.sockets.on('connection', function(socket){
     io.sockets.emit('chat message ' + id, msg);
   });
 });
-
+*/
 server.listen(process.env.PORT || 5000);
 
 // ================================================
