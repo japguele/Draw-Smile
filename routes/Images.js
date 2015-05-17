@@ -42,11 +42,6 @@ module.exports = function(router, Images){
         fs.writeFile("images/out.png", base64Data, 'base64', function(err) {
           console.log(err);
         });*/
-        var string = req.body.image;
-        var array = string.match(/(.|[\r\1000]){1,1000}/g);
-        for (var i = array.length - 1; i >= 0; i--) {
-          images.image[i] = array[i]
-        };
 
         var drive = googleapis.drive({ 
             version: 'v2', 
