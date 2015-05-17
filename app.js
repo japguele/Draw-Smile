@@ -27,7 +27,7 @@ var Rank = require('./app/models/Rankings.js');
 
 
 mongoose.connect("mongodb://user:user@ds039211.mongolab.com:39211/smile");
-/*
+
 // set up our express application
 app.use(morgan('dev')); // log every request to the console
 app.use(cookieParser()); // read cookies (needed for auth)
@@ -102,7 +102,7 @@ io.sockets.on('connection', function(socket){
     io.sockets.emit('chat message ' + id, msg);
   });
 });
-*/
+
 server.listen(process.env.PORT || 5000);
 
 // ================================================
