@@ -1,4 +1,4 @@
-module.exports = function(router, Images,googleapis){
+module.exports = function(router, Images){
     /**
      * Init google api
      */
@@ -18,7 +18,8 @@ module.exports = function(router, Images,googleapis){
         });
     }).post(function(req, res){
         var images = new Images();
-        Images.SaveImageTodrive((req.files.image,googleapis,res);
+
+        Images.SaveImageTodrive(req.body.image,req.body.name)
         //images.image = req.body.image;
         
         /*
@@ -27,44 +28,9 @@ module.exports = function(router, Images,googleapis){
         fs.writeFile("images/out.png", base64Data, 'base64', function(err) {
           console.log(err);
         });*/
-/*
-        var drive = googleapis.drive({ 
-            version: 'v2', 
-            auth: jwt 
-        });
 
-        drive.files.insert({
-            resource: {
-              title: 'Test',
-              mimeType: 'image/jpeg',
-              parents: [{
-                id: folderID
-              }]
-            },
-            media: {
-                mimeType: 'image/jpeg',
-                body: fs.createReadStream(req.files.image.path)
-            }
-          }, function (err, resp) {
-              if (err) {
-                console.log(err);
-              } else {
-                console.log("Saved to googledrive");
-                images.googledrive_id = resp.id;
-                images.title = 'Canvas image';
+      
 
-                images.save(function(err){
-                    if(err){
-                        res.json({status : "ERROR",  message: "Fout bij het aanmaken van een Images" });
-                        res.send(err);
-                    } else {
-                        res.status(201);
-                        res.json({status : "OK", message: "Images is aangemaakt", data : images});
-                    }
-                });
-            }
-          });
-*/
         /**/
     });
     
