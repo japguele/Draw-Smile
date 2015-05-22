@@ -10,6 +10,8 @@ module.exports = function(router, Room, User, Images){
             room.users = [];
             room.roomsize = req.body.roomsize;
             room.started = false;
+            room.status = "pending";
+            room.status =  req.body.status;
 
             room.save(function(err){
                 if(err){
@@ -85,6 +87,10 @@ module.exports = function(router, Room, User, Images){
                 if(req.body.started != null){    
                     console.log("Started = "+ req.body.started);            
                     room.started = req.body.started;
+                }
+
+                if(req.body.status != null){
+                    room.status = room.status;
                 }
 
                 room.save(function(err){
@@ -256,36 +262,23 @@ module.exports = function(router, Room, User, Images){
 
                     if(req.body.image != null){      
                         var images = new Images();
-                        images.image = req.body.image; 
-                        images.save(function(err,image){
-                            if(err){
-                               res.json({status : "ERROR",  message: "Fout bij het aanmaken van een Images" });
-                               res.send(err);
-                            } 
-                  
-                            room.users[count].image = image._id;         
-                            room.save(function(err){
-                                if(err){ 
-                                    res.send(err); 
-                                }
-                                res.status(200);
-                                res.json({status : "OK", message: "Updaten gelukt"});
-                            });
-                         });
-                    } else {                                         
+                      images.SaveImageTodrive(req.body.image,req.body.name);
+
+                    
+                                                           
                         room.save(function(err){
                             if(err){ res.send(err)};
                             res.status(200);
                             res.json({status : "OK", message: "Updaten gelukt"});
                         });
-                    }
+                    
+                    } 
                 }
-                
-            });
-            
-        })
        
     
+           
+            });
+        });
     return router;
 }
 
