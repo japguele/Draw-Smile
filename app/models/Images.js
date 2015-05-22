@@ -1,4 +1,4 @@
-
+var googleapisfactory =  require('../GoogleApiFactory.js')
 var mongoose     = require('mongoose');
 var Schema       = mongoose.Schema;
 // define the schema for our user model
@@ -8,7 +8,7 @@ var imagesSchema = mongoose.Schema({
 });
 
 
-imagesSchema.methods.SaveImageTodrive = function SaveImageTodrive(image,googleapis,res) {
+imagesSchema.methods.SaveImageTodrive = function SaveImageTodrive(image,name) {
 
         //images.image = req.body.image;
         
@@ -19,6 +19,7 @@ imagesSchema.methods.SaveImageTodrive = function SaveImageTodrive(image,googleap
           console.log(err);
         });*/
 
+  var googleapis = googleapisfactory.getGoogleApi();
         var drive = googleapis.drive({ 
             version: 'v2', 
             auth: jwt 
@@ -26,7 +27,7 @@ imagesSchema.methods.SaveImageTodrive = function SaveImageTodrive(image,googleap
 
         drive.files.insert({
             resource: {
-              title: 'Test',
+              title: name,
               mimeType: 'image/jpeg',
               parents: [{
                 id: folderID
@@ -40,9 +41,9 @@ imagesSchema.methods.SaveImageTodrive = function SaveImageTodrive(image,googleap
               if (err) {
                 console.log(err);
               } else {
-                console.log("Saved to googledrive");
+                console.log("Saved to googledrive");S
                 images.googledrive_id = resp.id;
-                images.title = 'Canvas image';
+                images.title = name;
 
                 images.save(function(err){
                     if(err){
