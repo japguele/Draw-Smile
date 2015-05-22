@@ -174,30 +174,43 @@ module.exports = function(router, Room, User, Images){
                             res.json({status : "ERROR", message: "Fout bij het ophalen van Room", data: err});
                             //res.send(err);
                         } else {
-                            console.log(room.users);
-                            room.users.push({
-                                user: req.body.user,
-                                story_part: room.users.length + 1,
-                                completed: false
-                            });
-                            console.log("After;");
-                            console.log(room.users);
+                            var isAllReadyInGame = false;
+                            for (var i = room.users.length - 1; i >= 0; i--) {
+                                if(room.users[i].id == req.body.user.id){
+                                    isAllReadyInGame = true
 
-                            room.save(function (err) {
-                                if (err){
-                                    res.json({
-                                        status : "ERROR", 
-                                        message: "Fout tijdens het update van de Room", 
-                                        data: err
-                                    });
-                                } else {
-                                    res.json({
-                                        status : "OK", 
-                                        message: "Updaten gelukt", 
-                                        data: room.users
-                                    });
                                 }
-                            })
+                            };
+                            if(!isAllReadyInGame){
+                                console.log(room.users);
+                                room.users.push({
+                                    user: req.body.user,
+                                    story_part: room.users.length + 1,
+                                    completed: false
+                                });
+                                console.log("After;");
+                                console.log(room.users);
+
+                                room.save(function (err) {
+                                    if (err){
+                                        res.json({
+                                            status : "ERROR", 
+                                            message: "Fout tijdens het update van de Room", 
+                                            data: err
+                                        });
+                                    } else {
+                                        res.json({
+                                            status : "OK", 
+                                            message: "Updaten gelukt", 
+                                            data: room.users
+                                        });
+                                    }
+                                })
+                            }else{
+
+                                res.json({ status : "ERROR", 
+                                            message: "user allready in room" });
+                            }
                             
                         }
                         
